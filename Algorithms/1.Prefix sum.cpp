@@ -68,7 +68,7 @@ void solve() {
             pref[i] = arr[i] + pref[i - 1]; // initialising all the precomputation of sums in the prefix sum array
         }
     }
-// Taking all the queries as input if the form of Left and Right
+// Taking all the queries as input in the form of Left and Right
     int t;
     cin >> t;
     while (t--) {
@@ -76,7 +76,7 @@ void solve() {
         cin >> l >> r;
 // Now making sure if all the ranges of L and R are positive
         if (l - 1 >= 0) {
-            cout << pref[r] - pref[l - 1] << endl;
+            cout << pref[r] - pref[l - 1] << endl; ,,
         } else {
             cout << pref[r] << endl;
         }
