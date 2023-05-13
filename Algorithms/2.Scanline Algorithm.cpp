@@ -54,36 +54,35 @@ void swap(int &x, int &y) {int temp = x; x = y; y = temp;}
 //-----------------------------------------------------------------------------//
 using namespace std;
 void solve() {
- // Taking the size and input from the original array
+//This algorithm is mainly a subset of prefix sum Algo. but over here instead of answering all the queries we are supposed to change the original array
+// within a certain Range of L and R.
     int n;
     cin >> n;
     vector<int>arr(n);
     for (int i = 0; i < n; i++) cin >> arr[i];
-// Creating a prefix Sum Array
-    vector<int>pref(n + 1);
-    for (int i = 0; i < n; i++) {
-        if (i == 0) {
-            pref[i] = arr[0];                // initialising the first element of the prefix sum array as same as the first element of the original array
-        } else {
-            pref[i] = arr[i] + pref[i - 1]; // initialising all the precomputation of sums in the prefix sum array
-        }
-    }
-// Taking all the queries as input in the form of Left and Right
-    int t;
-    cin >> t;
+// Making a prefix sum array of (N+1) size and but overhere we don't precompute the sum , rather we setup the range as marking in the prefix array;
+    vector<int>prefix(n + 1, 0);
+    int t; cin >> t;
+// Taking input of all the queries of ranges in L and R.
     while (t--) {
-        int l = 0, r = 0;
-        cin >> l >> r;
-// Now making sure if all the ranges of L and R are positive
-        if (l - 1 >= 0) {
-            cout << pref[r] - pref[l - 1] << endl; // Prefix sum formulae
-        } else {
-            cout << pref[r] << endl;
-        }
+        int l, r, x; cin >> l >> r >> x;
+        prefix[l] += x;
+        prefix[r + 1] -= x;
     }
+// Now precomputing the prefix sum array what we preinitialized according to the L and R range
+    int sum = 0;
+    for (int i = 0; i < n; i++) {
+        sum += prefix[i];
+        arr[i] += sum;
+    }
+// Now simply printing the resultant array
+    for (int i = 0; i < n; i++) {
+        cout << arr[i] << " ";
+    }
+    cout << endl;
     return;
 }
-    int main() {
+     int main() {
     init_code();
     ios::sync_with_stdio(0);
     cin.tie(0);
